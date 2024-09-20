@@ -23,7 +23,3 @@ const Demo2 = ()=>{
 
 export default Demo2
 ```
-
-## 这是code引用项目组件的例子
-
-<code src="./FooCompo.tsx">
