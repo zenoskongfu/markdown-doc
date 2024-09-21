@@ -3,7 +3,8 @@
 这是一个测试的markdown文件
 
 ## 这是第一个代码块
-```tsx
+
+```ts
 import React from 'react';
 
 const Demo1 = ()=>{
@@ -14,12 +15,5 @@ export default Demo1
 ```
 
 ## 这是第二个代码块
-```jsx
-import React from 'react';
 
-const Demo2 = ()=>{
-  return <div>Demo2</div>
-}
-
-export default Demo2
-```
+<code src="./FooCompo.tsx"/>
