@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Prism from "prismjs";
-import "./index.scss";
 import "prismjs/components/prism-typescript";
+import "./index.scss";
 
 const ShowCode = (props: { code: string }) => {
   const [newCode, setCode] = useState("");
