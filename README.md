@@ -1,30 +1,16 @@
-# React + TypeScript + Vite
+# 项目介绍
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 前言
 
-Currently, two official plugins are available:
+前段时间搭建了一个组件库，但是缺点很明显，缺少文档，让使用者以及组件库的开发者都不知所以
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+所以这段时间研究了下，写一个组件库的文档，调研了下市场上的文档生成库，大多数都有自己的文件目录，必须按照它们的规则组织组件库项目的目录，有些没有这些要求，但是功能很弱，所以我想自己写一个类似的文档生成库，对项目目录的要求完全依照我现有的结构来写
 
-## Expanding the ESLint configuration
+## 功能
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+对于文档，我想有下面这些功能：
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. 可以在页面渲染 markdown
+2. markdown 中可以嵌套 react 组件
+3. 直接渲染 markdown 中的 react 代码块
+4. 在下方展示已渲染的React组件时，同步配套提供该组件的源代码，允许用户进行编辑。编辑操作一经完成，系统即时启动编译流程，以确保上方呈现的组件实例能够快速反映出代码变更的效果，实现预览与编码的无缝衔接。
