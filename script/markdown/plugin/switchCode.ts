@@ -1,16 +1,13 @@
 import { visit } from "unist-util-visit";
 
-type ElementType = {
+export type ElementType = {
   tagName: string;
   properties: Record<string, string>;
   children?: (ElementType & { value: string })[];
 };
 
 export type SwitchCodeOptionsType = Partial<ElementType> & {
-  handleCode?: (
-    index: number,
-    node: ElementType & { children: ElementType[] }
-  ) => Partial<ElementType> | null;
+  handleCode?: (index: number, node: ElementType & { children: ElementType[] }) => Partial<ElementType> | null;
 };
 
 const switchCode = (options: SwitchCodeOptionsType) => {

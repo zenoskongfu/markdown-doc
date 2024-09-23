@@ -27,6 +27,8 @@ const VitePluginMarkdown = (): Plugin => {
 
         _code = switchTagName(Object.keys(dynamicComponents), _code);
 
+        console.log("_code: ", html);
+
         const esbuildRes = await esbuildTransform(_code);
 
         return {
