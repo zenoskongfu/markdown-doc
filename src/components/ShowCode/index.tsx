@@ -7,11 +7,8 @@ const ShowCode = (props: { code: string }) => {
   const [newCode, setCode] = useState("");
 
   useEffect(() => {
-    const res = Prism.highlight(
-      props.code,
-      Prism.languages.typescript,
-      "typescript"
-    );
+    console.log(props.code);
+    const res = Prism.highlight(props.code, Prism.languages.typescript, "typescript");
     setCode(res);
   }, [props.code]);
 

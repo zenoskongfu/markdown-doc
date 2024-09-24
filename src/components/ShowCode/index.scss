@@ -1,7 +1,11 @@
 .show-code-container {
+  display: block;
   height: fit-content;
   padding: 1em;
-  border: 1px solid rgba(246, 241, 241);
-  border-radius: 8px;
-  box-shadow: 0 0 5px 0px rgb(232, 232, 232);
+  // border: 1px solid rgba(246, 241, 241);
+  // border-radius: 8px;
+  // box-shadow: 0 0 5px 0px rgb(232, 232, 232);
+
+  font-family: monospace;
+  white-space: pre;
 }

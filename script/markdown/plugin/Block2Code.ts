@@ -15,8 +15,8 @@ const handleFrontMatterData = (data: Record<string, string | number | boolean>) 
 const Block2Code = () => {
   return switchCode({
     handleCode(index, node) {
-      if (node.children.length > 0) {
-        const { content, data } = grayMatter(node.children[0].value);
+      if (node.tagName == "code" && node.children.length > 0) {
+        const { content, data } = grayMatter(node.children[0].value.replace(/^(\s|\n)+/, ""));
         const _data = handleFrontMatterData(data);
         return {
           tagName: "code",

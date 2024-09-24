@@ -22,24 +22,26 @@ const switchCode = (options: SwitchCodeOptionsType) => {
 
     return (tree: import("unist").Node) => {
       visit(tree, "element", (node: any) => {
-        if (node.tagName == "code") {
-          const res = handleCode(index++, node);
-          const assignedOptions = {
-            tagName,
-            properties,
-            children,
-            ...(res || {}),
-          };
+        // if (node.tagName == "code") {
+        const res = handleCode(index, node);
+        if (!res) return;
+        index++;
+        const assignedOptions = {
+          tagName,
+          properties,
+          children,
+          ...(res || {}),
+        };
 
-          node.tagName = assignedOptions.tagName;
+        node.tagName = assignedOptions.tagName;
 
-          node.properties = {
-            ...node.properties,
-            ...assignedOptions.properties,
-          };
+        node.properties = {
+          ...node.properties,
+          ...assignedOptions.properties,
+        };
 
-          node.children = assignedOptions.children || [];
-        }
+        node.children = assignedOptions.children || [];
+        // }
       });
     };
   };

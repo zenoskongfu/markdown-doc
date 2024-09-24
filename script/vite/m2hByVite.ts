@@ -16,24 +16,66 @@ type handleCodeParamsType = {
 
 const handleValueCode = (data: handleCodeParamsType) => {
   const { id, index, node, dynamicComponents } = data;
-  const { isRender = "true", _value, ...other } = node.properties;
+  const { type = "both", _value, ...other } = node.properties;
   const mdName = path.basename(id).replace(".md", "");
+  const fileName = handleTagName(`${mdName}_demo_${index}`);
 
-  let tagName = handleTagName(`${mdName}_demo_${index}`);
+  // initial value
+  let tagName = fileName;
   const properties = { ...other } as Record<string, string>;
+  let children = [];
 
-  if (isRender == "true") {
-    const filePath = path.resolve(TempPath, "./" + tagName + ".tsx");
-    fs.writeFileSync(filePath, _value, "utf-8");
-    dynamicComponents[tagName] = filePath;
-  } else {
-    tagName = "showcode";
-    properties.code = _value.replace('"', "'");
+  switch (type) {
+    case "component":
+      return handleCompoRender();
+    case "code":
+      return handleCodeRender();
+    case "both":
+    default:
+      return handleBothRender();
   }
-  return {
-    tagName,
-    properties,
-  };
+
+  function handleBothRender() {
+    const filePath = path.resolve(TempPath, "./" + fileName + ".tsx");
+    fs.writeFileSync(filePath, _value, "utf-8");
+    dynamicComponents[fileName] = filePath;
+
+    tagName = "component_and_code";
+    dynamicComponents[tagName] = "@src/components/ComponentAndCode";
+    properties.code = _value.replace(/"/g, "'");
+    children = [
+      {
+        type: "element",
+        tagName: fileName,
+      },
+    ];
+    return {
+      tagName,
+      properties,
+      children,
+    };
+  }
+
+  function handleCompoRender() {
+    const filePath = path.resolve(TempPath, "./" + fileName + ".tsx");
+    fs.writeFileSync(filePath, _value, "utf-8");
+    dynamicComponents[fileName] = filePath;
+
+    return {
+      tagName: fileName,
+      properties,
+    };
+  }
+
+  function handleCodeRender() {
+    tagName = "showcode";
+    properties.code = _value.replace(/"/g, "'");
+
+    return {
+      tagName,
+      properties,
+    };
+  }
 };
 
 const m2hByVite = async (code: string, id: string) => {
@@ -44,7 +86,8 @@ const m2hByVite = async (code: string, id: string) => {
   const htmlFile = await markdown2html(id, code, {
     codeTag: {
       handleCode(index, node) {
-        if (node.tagName === "code" && !node.properties.src && node.properties._value) {
+        if (node.tagName === "code" && node.properties._value) {
+          console.log("_value: ", node.properties._value);
           return handleValueCode({
             id,
             index,
